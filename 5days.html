@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>ПРОГНОЗ ПОГОДИ</title>
 	<script type="text/javascript" src="jquery-1.11.1.js"></script>
-	<script type="text/javascript" src="ajax-script.js"></script>
+	<script type="text/javascript" src="ajax-script1.js"></script>
 </head>
 <body>
     <header>
@@ -12,7 +12,7 @@
     <table id="thed" align="left" cellspacing="10">
     	<tr>
          
-            <th><a href="index.html">Головна</a></th>
+            <th><a href="index.html">Головна</a><a href="5days.html"> На 5 днів</a></th>
             <th><a href="http://meteo.ua/sputnik">Спутникова інформація</a></th>
             <th><a href="http://meteo.ua/weather-on-road"></a><th>
             <th><a href="http://meteo.ua/resorts">Погода на курортах</a></th>
@@ -39,7 +39,7 @@
 		
 		<input type="text" id="cityname"  size="20"/>
 		
-		<input type="button" id="send" value="Send city name" />
+		<input type="button" id="send" value="Send city name"  />
 	</form>
 	
 <h2>
@@ -61,11 +61,15 @@
 	<tr> 
 	 <td>Температура, C </td>
 		 <td><b><span id="temp"></span>, &#8451;</b></td>
+		 <td><b><span id="temp"></span>, &#8451;</b></td>
+		 <td><b><span id="temp"></span>, &#8451;</b></td>
+		 <td><b><span id="temp"></span>, &#8451;</b></td>
+		 <td><b><span id="temp"></span>, &#8451;</b></td>
 		 
 	</tr>
 	<tr> 
 	 <td>Хмарність</td>
-		 <td><img id="cloudimg"></div><b><span id="clouddescr"></span></td>
+		 <td><b><span id="clouddescr"></span><img id="cloudimg"></div></td>
 		 
 	</tr>
 	
