@@ -1,102 +1,66 @@
+$(document).ready(function (){
 
-$(function() {
-    $(".tabs-menu a").click(function(event) {
-        event.preventDefault();
-        $(this).parent().addClass("current");
-        $(this).parent().siblings().removeClass("current");
-        var tab = $(this).attr("href");
-        $(".tab-content").not(tab).css("display", "none");
-        $(tab).fadeIn();
+    $("#s-home").click(function (){
+        $('html, body').animate({
+                    scrollTop: $("#home").offset().top
+                }, 1500);
+    });
+    $("#s-Weather forecast, #c-s-Weather forecast").click(function (){
+        $('html, body').animate({
+                    scrollTop: $("#Weather forecast").offset().top
+                }, 1500);
+    });
+    $("#s-books, #c-s-books").click(function (){
+        $('html, body').animate({
+                    scrollTop: $("#books").offset().top
+                }, 1500);
+    });
+    $("#s-contact, #c-s-contact").click(function (){
+        $('html, body').animate({
+                    scrollTop: $("#contact").offset().top
+                }, 1500);
     });
 });
 
+$(document).ready(function() {
+ $("#skill").mouseenter(function(){
+  $('.graph-bar').each(function() {
+     var dataWidth = $(this).data('value');
+     $(this).css("width", dataWidth + "%");
+  });
+ }); 
+});
 
+$(document).ready(function (){
 
-$(function() {
+    $("#header").mouseenter(function(){
+        $("#header").css({"opacity":"1", "transition": "all,1s"});		
+    });  
+    $("#home").mouseenter(function(){
+        $("#header").css({"opacity":"0.7", "transition": "all,1s"});		
+    });
+    $("#profile").mouseenter(function(){
+        $("#header").css({"opacity":"1", "transition": "all,1s"});
+    });
+    $("#contact").mouseenter(function(){
+        $("#header").css({"opacity":"1", "transition": "all,1s"});
+    });
+    $(".footer").mouseenter(function(){
+        $("#header").css({"opacity":"1", "transition": "all,1s"});
+    });
+});
 
-	var APPID = "6dd5d55e84742b720ad18912a82e4c96";
-	
-	$('#send').click(function() {
-		var cityname = $('#cityname').val();
-
-		$.get('http://api.openweathermap.org/data/2.5/weather?q=' + cityname + '&APPID=' + APPID, function(data) {
-			$('#selectedcity').html(data.name);
-			$('#clouddescr').html(data.weather[0].description);
-			$('#cloudimg').attr('src', 'http://openweathermap.org/img/w/' + data.weather[0].icon + '.png');
-			$('#temp').html((data.main.temp - 273.15).toFixed(2));
-			$('#pressure').html(data.main.pressure);
-			$('#humidity').html(data.main.humidity);
-			$('#windspeed').html(data.wind.speed);
-		}, 'json').done(function() {
-			console.log('Request completed successfully');
-		}).fail(function() {
-			console.log('Request is failure');
-		});
-
-		$('#weathervals').remove();
-
-		$.get('http://api.openweathermap.org/data/2.5/forecast?q=' + cityname + '&APPID=' + APPID, function(data) {
-
-			function weathval(index) {
-				return '<p id="clouddescr">' + data.list[index].weather[0].description + '</p><img id="cloudimg" src="http://openweathermap.org/img/w/' + data.list[index].weather[0].icon + '.png"><p id="temp">' + (data.list[index].main.temp - 273.15).toFixed(2) + '</p><p id="pressure">' + data.list[index].main.pressure + '</p><p id="humidity">' + data.list[index].main.humidity + '</p><p id="windspeed">' + data.list[index].wind.speed + '</p>'
-			}
-			
-			$('#tab-2').append('<div id="weathervals" style="width:' + (screen.width-350) + 'px"></div>');
-
-			for (var i = 0; i < data.list.length; i++) {
-
-				if (i == 0) {
-					$('#weathervals').append('<div id="date">' + data.list[i].dt_txt.substring(0, 10) + '<br></div>');
-					$('#date:last-child').append('<div class="time" id="time-' + i + '" style="border-top: 1px solid #898989">' + data.list[i].dt_txt.substring(10, 16) + '</div>');
-					$('#time-' + i).append('<div id="weathval"></div>').append(weathval(i));
-					continue;
-				}
-
-				if (data.list[i].dt_txt.substring(0, 10) != data.list[i-1].dt_txt.substring(0, 10)) {
-					$('#weathervals').append('<div id="date">' + data.list[i].dt_txt.substring(0, 10) + '<br></div>');
-					$('#date:last-child').append('<div class="time" id="time-' + i + '" style="border-top: 1px solid #898989">' + data.list[i].dt_txt.substring(10, 16) + '</div>');
-					$('#time-' + i).append('<div id="weathval"></div>').append(weathval(i));
-				}
-
-				if (data.list[i].dt_txt.substring(0, 10) == data.list[i-1].dt_txt.substring(0, 10)) {
-					$('#date:last-child').append('<div class="time" id="time-' + i + '" style="border-left: 1px solid #898989; border-top: 1px solid #898989">' + data.list[i].dt_txt.substring(10, 16) + '</div>');
-					$('#time-' + i).append('<div id="weathval"></div>').append(weathval(i));	
-				}
-			}
-
-		}, 'json').done(function() {
-			console.log('Request completed successfully');
-		}).fail(function() {
-			console.log('Request is failure');
-		});
-
-		
-		$('#weathervals').remove();
-
-		$.get('http://api.openweathermap.org/data/2.5/forecast/daily?q=' + cityname + '&APPID=' + APPID, function(data) {
-
-			function weathval(index) {
-				return '<p id="clouddescr">' + data.list[index].weather[0].description + '</p><img id="cloudimg" src="http://openweathermap.org/img/w/' + data.list[index].weather[0].icon + '.png"><p id="temp">' + (data.list[index].temp.day - 273.15).toFixed(2) + '</p><p id="pressure">' + data.list[index].pressure + '</p><p id="humidity">' + data.list[index].humidity + '</p><p id="windspeed">' + data.list[index].speed + '</p>'
-			}
-			
-			$('#tab-3').append('<div id="weathervals" style="width:' + (screen.width-350) + 'px"></div>');
-
-			for (var i = 0; i < data.list.length; i++) {
-
-				
-					$('#weathervals').append('<div id="date">' + data.list[i].dt + '<br></div>');					
-					$('#weathervals').append('<div id="weathval"></div>').append(weathval(i));
-					
-			}
-
-		}, 'json').done(function() {
-			console.log('Request completed successfully');
-		}).fail(function() {
-			console.log('Request is failure');
-		});
-
-
-
-
-	});
+$(document).ready(function() {
+    $("#form").submit(function() {
+        $.ajax({
+            type: "POST",
+            url: "index.php",
+            data: $(this).serialize()
+        }).done(function() {
+            $(this).find("input").val("");
+            alert("message sent");
+            $("#form").trigger("reset");
+        });
+        return false;
+    }); 
 });
